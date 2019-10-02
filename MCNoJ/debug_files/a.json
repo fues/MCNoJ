@@ -1,0 +1,40 @@
+{
+    "command": "test command $nbt$",
+    "nbt": {
+        "_Byte_byteex": 123,
+        "_ByteArray_bytearrex": [
+            1,
+            2,
+            3
+        ],
+        "intex": 456,
+        "_IntArray_intarrex": [
+            4,
+            5,
+            6
+        ],
+        "_Short_shortex": 789,
+        "_Long_longex": 101112,
+        "_LongArray_longarrex": [
+            10,
+            11,
+            12
+        ],
+        "_Float_floatex": 1.2345678910111213,
+        "_Double_doubleex": 1.2345678910111213,
+        "stringex": "string!!!!!!",
+        "_RawJson_rjex": [{
+            "aaa": "asdf",
+            "bbb": "ffff"
+        }],
+        "_RawJsonArray_rjaex": [{
+            "aaa": "asdf",
+            "bbb": "ffff"
+        }],
+        "_RawJsonFile_rjfex": "page1.json",
+        "_RawJsonFileArray_rjfaex": [
+            "page1.json",
+            "page2.json"
+        ]
+    }
+}
