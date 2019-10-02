@@ -43,14 +43,14 @@ namespace MCNoJ
                         throw new JsonReaderException(errMsg);
                     }
                     //make nbt
-                    try
+                    JToken nbtJson = json["nbt"];
+                    if (nbtJson != null)
                     {
-                        nbt = jsonToNBT.MakeNBT(json["nbt"]);
+                        nbt = jsonToNBT.MakeNBT(nbtJson);
                     }
-                    catch (FormatException e)
+                    else
                     {
-                        Console.WriteLine(e.Message);
-                        return;
+                        throw new JsonException("\"nbt\" is undefined.");
                     }
                     if (nbt == null)
                     {
@@ -61,17 +61,28 @@ namespace MCNoJ
                     if (!options.Value.OnlyNbt)
                     {
                         string command = (string)(JValue)json["command"];
-                        output = command.Replace("$nbt$", output);
+
+                        if (command != null)
+                        {
+                            output = command.Replace("$nbt$", output);
+                        }
+                        else
+                        {
+                            throw new JsonException("\"command\" is not defined.");
+                        }
                     }
                     //setting output file
                     string outputFile;
                     string outputFileJson = (string)(JValue)json["output"];
                     string outputFileCommandLine = options.Value.OutputFile;
 
-                    if (outputFileJson == null && outputFileCommandLine == null) {
+                    if (outputFileJson == null && outputFileCommandLine == null)
+                    {
                         //not defined output file
                         Console.WriteLine(output);
-                    } else {
+                    }
+                    else
+                    {
                         if (outputFileJson != null && outputFileCommandLine == null)
                         {
                             //defined output file in only json
@@ -95,12 +106,7 @@ namespace MCNoJ
 
                     }
                 }
-                catch (IOException e)
-                {
-                    Console.WriteLine(e.Message);
-                    return;
-                }
-                catch (JsonReaderException e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                     return;

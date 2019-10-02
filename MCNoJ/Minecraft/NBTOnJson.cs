@@ -43,6 +43,8 @@ namespace MCNoJ.Minecraft
                     return new NBTList(arrChildren);
                 case JTokenType.Integer:
                     return new NBTInt((int)(long)((JValue)jToken).Value);
+                case JTokenType.Float:
+                    return new NBTDouble((double)((JValue)jToken).Value);
                 case JTokenType.String:
                     return new NBTString((string)((JValue)jToken).Value);
                 default:
@@ -51,33 +53,36 @@ namespace MCNoJ.Minecraft
         }
         private NBT MakeNBT(JToken jToken, ref string key)
         {
-            Match matche = Regex.Match(key, "^_(.+)_(.+)$");
+            Match matche = Regex.Match(key, "^_([^_]+)_(.+)$");
             JTokenType jsonType = jToken.Type;
             NBT nbt = null;
             switch (matche.Groups[1].Value)
             {
-                case "Byte":
+                case "TAGByte":
                     nbt = TryMakeNBTBtye(jToken);
                     break;
-                case "Short":
+                case "TAGShort":
                     nbt = TryMakeNBTShort(jToken);
                     break;
-                case "Long":
+                case "TAGInt":
+                    nbt = TryMakeNBTInt(jToken);
+                    break;
+                case "TAGLong":
                     nbt = TryMakeNBTLong(jToken);
                     break;
-                case "Float":
+                case "TAGFloat":
                     nbt = TryMakeNBTFloat(jToken);
                     break;
-                case "Double":
+                case "TAGDouble":
                     nbt = TryMakeNBTDouble(jToken);
                     break;
-                case "ByteArray":
+                case "TAGByteArray":
                     nbt = new NBTByteArray(TryMakeNBTListType(jToken, TryMakeNBTBtye));
                     break;
-                case "IntArray":
+                case "TAGIntArray":
                     nbt = new NBTIntArray(TryMakeNBTListType(jToken, TryMakeNBTInt));
                     break;
-                case "LongArray":
+                case "TAGLongArray":
                     nbt = new NBTLongArray(TryMakeNBTListType(jToken, TryMakeNBTLong));
                     break;
                 case "RawJson":
@@ -149,7 +154,7 @@ namespace MCNoJ.Minecraft
         }
         private NBTFloat TryMakeNBTFloat(JToken jToken)
         {
-            if (jToken.Type == JTokenType.Float)
+            if (jToken.Type == JTokenType.Float || jToken.Type == JTokenType.Integer)
             {
                 return new NBTFloat((float)(double)((JValue)jToken).Value);
             }
@@ -160,7 +165,7 @@ namespace MCNoJ.Minecraft
         }
         private NBTDouble TryMakeNBTDouble(JToken jToken)
         {
-            if (jToken.Type == JTokenType.Float)
+            if (jToken.Type == JTokenType.Float || jToken.Type == JTokenType.Integer)
             {
                 return new NBTDouble((double)((JValue)jToken).Value);
             }

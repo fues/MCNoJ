@@ -1,27 +1,29 @@
 {
-    "command": "test command $nbt$",
+    "command": "give @p minecraft:pufferfish$nbt$ 3",
     "nbt": {
-        "_Byte_byteex": 123,
-        "_ByteArray_bytearrex": [
+        "_TAGByte_byteex": 123,
+        "_TAGByteArray_bytearrex": [
             1,
             2,
             3
         ],
-        "intex": 456,
-        "_IntArray_intarrex": [
+        "_TAGInt_intex1": 456,
+        "intex2": 4567,
+        "_TAGIntArray_intarrex": [
             4,
             5,
             6
         ],
-        "_Short_shortex": 789,
-        "_Long_longex": 101112,
-        "_LongArray_longarrex": [
+        "_TAGShort_shortex": 789,
+        "_TAGLong_longex": 101112,
+        "_TAGLongArray_longarrex": [
             10,
             11,
             12
         ],
-        "_Float_floatex": 1.2345678910111213,
-        "_Double_doubleex": 1.2345678910111213,
+        "_TAGFloat_floatex": 1.2345678910111213,
+        "_TAGDouble_doubleex1": 1.2345678910111213,
+        "doubleex2": 3.14159265358979323,
         "stringex": "string!!!!!!",
         "_RawJson_rjex": [{
             "aaa": "asdf",
