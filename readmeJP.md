@@ -94,8 +94,8 @@ jsonのキーの名称は基本的にそのままNBTのキーに変換されま�
 ```json
 {
     "display":{
-        "_RawJson_Name":"example.json",
-        "_RawJsonArray_Lore":[
+        "_RawJsonFile_Name":"example.json",
+        "_RawJsonFileArray_Lore":[
             "example2.json",
             "example3.json"
         ]
