@@ -48,11 +48,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandLine, Version=2.6.0.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommandLineParser.2.6.0\lib\net461\CommandLine.dll</HintPath>
+    <Reference Include="CommandLine, Version=2.9.1.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommandLineParser.2.9.1\lib\net461\CommandLine.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -89,4 +89,30 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>rem readme, license等コピー
+md $(TargetDir)Licenses
+xcopy /e /y $(ProjectDir)..\Licenses $(TargetDir)Licenses
+xcopy /y $(ProjectDir)..\License.txt $(TargetDir)
+xcopy /y $(ProjectDir)..\Readme.md $(TargetDir)
+xcopy /y $(ProjectDir)..\readmeJP.md $(TargetDir)
+rem デモ用ファイル作成
+md $(TargetDir)readme_demo
+xcopy /y $(ProjectDir)..\readme_demo\ $(TargetDir)readme_demo
+md $(TargetDir)debug_files
+xcopy /y $(ProjectDir)debug_files\ $(TargetDir)debug_files
+rem 不要ファイル削除
+del $(TargetDir)*.xml
+del $(TargetDir)*.pdb
+
+rem 実行ファイル配布用zip化。
+rem zipコマンドが使える場合は 以下gotoをコメントアウト
+rem goto END
+cd ..\
+md $(ProjectName)
+xcopy /e /y $(TargetDir) $(ProjectName)
+zip -r $(ProjectName).zip $(ProjectName)\
+rd /s /q $(ProjectName)
+:END</PostBuildEvent>
+  </PropertyGroup>
 </Project>
