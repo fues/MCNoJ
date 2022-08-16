@@ -10,7 +10,7 @@ namespace MCNoJ.Minecraft
         string basePath;
         public NBTOnJson(string basePath)
         {
-            this.basePath = basePath;
+            this.basePath = basePath;//相対パスのRawJsonファイル探索用
         }
         public NBT MakeNBT(JToken jToken)
         {
